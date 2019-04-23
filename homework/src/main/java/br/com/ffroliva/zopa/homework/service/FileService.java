@@ -20,18 +20,18 @@ public class FileService {
     private FileService(){
     }
 
-    protected Optional<Stream<String>> readLinesFromFile(String marketFile) {
-        Optional<Stream<String>> lines = Optional.empty();
+    protected Optional<Stream<String>> readLinesFromFile(String marketFile) throws QuoteException {
+        Optional<Stream<String>> lines;
         try {
             lines = Optional.of(Files.lines(Paths.get(marketFile)));
         } catch (IOException e) {
-            new QuoteException(String.format("Error processing market file: %s", marketFile));
+            throw new QuoteException(String.format("Error processing market file: %s", marketFile));
         }
         return lines;
     }
 
     public List<Lender> extractLendersFromFile(String marketFile) throws QuoteException {
-        Stream<String> lines = readLinesFromFile(marketFile).orElseGet(() -> Stream.empty());
+        Stream<String> lines = readLinesFromFile(marketFile).orElseGet(Stream::empty);
         try {
             return  lines.skip(1)
                     .map(l -> l.split(",")) // first line is skipped because it is a header
@@ -39,7 +39,7 @@ public class FileService {
                     .sorted(new LenderComparator())
                     .collect(toList());
         } catch(Exception e) {
-            throw new QuoteException("Unable to extract the lenders from file. Please verify if it is correctly formated");
+            throw new QuoteException("Unable to extract the lenders from the given file. Please verify if it's correctly formatted.");
         }
     }
 
