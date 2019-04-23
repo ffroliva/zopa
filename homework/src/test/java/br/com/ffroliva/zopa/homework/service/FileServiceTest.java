@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static br.com.ffroliva.zopa.homework.service.FileUtils.MARKET_FILE_PATH;
-import static br.com.ffroliva.zopa.homework.service.FileUtils.getMarketFileResource;
+import static br.com.ffroliva.zopa.homework.service.FileUtils.*;
 
 public class FileServiceTest {
 
@@ -23,6 +22,9 @@ public class FileServiceTest {
     public void testExtractLendersFromFile() throws QuoteException {
         final List<Lender> lenders = FileService.get().extractLendersFromFile(getMarketFileResource(MARKET_FILE_PATH));
         Assertions.assertEquals(lenders.size(), 7);
+        Assertions.assertThrows(QuoteException.class,
+                () -> FileService.get().extractLendersFromFile(getMarketFileResource(INVALID_MARKET_FILE_PATH)));
+
     }
 
 }

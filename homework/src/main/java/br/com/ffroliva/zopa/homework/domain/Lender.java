@@ -2,13 +2,11 @@ package br.com.ffroliva.zopa.homework.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.io.Serializable;
 
 @Getter
 @Builder
-@ToString
 public class Lender implements Serializable {
 
     private String name;

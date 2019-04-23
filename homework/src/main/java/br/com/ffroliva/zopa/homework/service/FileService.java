@@ -30,13 +30,17 @@ public class FileService {
         return lines;
     }
 
-    public List<Lender> extractLendersFromFile(String marketFile){
+    public List<Lender> extractLendersFromFile(String marketFile) throws QuoteException {
         Stream<String> lines = readLinesFromFile(marketFile).orElseGet(() -> Stream.empty());
-        return  lines.skip(1)
-                .map(l -> l.split(",")) // first line is skipped because it is a header
-                .map(Lender::createLender)
-                .sorted(new LenderComparator())
-                .collect(toList());
+        try {
+            return  lines.skip(1)
+                    .map(l -> l.split(",")) // first line is skipped because it is a header
+                    .map(Lender::createLender)
+                    .sorted(new LenderComparator())
+                    .collect(toList());
+        } catch(Exception e) {
+            throw new QuoteException("Unable to extract the lenders from file. Please verify if it is correctly formated");
+        }
     }
 
     public static FileService get() {

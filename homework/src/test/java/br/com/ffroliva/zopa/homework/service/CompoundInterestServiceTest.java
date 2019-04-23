@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import static br.com.ffroliva.zopa.homework.service.CompoundInterestService._36_MONTHS;
 import static br.com.ffroliva.zopa.homework.service.FileUtils.MARKET_FILE_PATH;
@@ -26,6 +27,8 @@ public class CompoundInterestServiceTest {
     public void testSearchBestAverageInterestRate() throws QuoteException {
         final BigDecimal rate = CompoundInterestService.get().searchBestAverageInterestRate(PRINCIPLE.intValue(), getLenders());
         Assertions.assertEquals(BigDecimal.valueOf(0.070).setScale(3), rate);
+        Assertions.assertThrows(QuoteException.class,
+                () -> CompoundInterestService.get().searchBestAverageInterestRate(100000, getLenders()));
 
     }
 
@@ -33,6 +36,12 @@ public class CompoundInterestServiceTest {
     public void testCalculateTotalRepayment(){
         Assertions.assertEquals(BigDecimal.valueOf(1111.68) ,
                 CompoundInterestService.get().calculateTotalRepayment(PRINCIPLE, _36_MONTHS,BigDecimal.valueOf(0.07)));
+    }
+
+    @Test
+    public void testAvailableRates() throws QuoteException {
+        final Map<Float, Long> availableInterestRates = CompoundInterestService.get().availableInterestRates(getLenders());
+        Assertions.assertEquals(6,availableInterestRates.keySet().size());
     }
 
     private List<Lender> getLenders() throws QuoteException {

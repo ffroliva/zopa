@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 public class FileUtils {
 
     public static final String MARKET_FILE_PATH = "market.csv";
+    public static final String INVALID_MARKET_FILE_PATH = "invalid_market.csv";
 
     public static String getMarketFileResource(String filePath) throws QuoteException {
         URI uri = null;
