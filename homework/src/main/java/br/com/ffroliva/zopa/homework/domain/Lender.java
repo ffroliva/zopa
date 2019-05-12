@@ -1,18 +1,18 @@
 package br.com.ffroliva.zopa.homework.domain;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.io.Serializable;
 
 @Getter
 @Builder
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Lender implements Serializable {
 
     private String name;
     private float rate;
     private int available;
-
 
     public static Lender createLender(String[] columns) {
         Lender lender = new LenderBuilder()

@@ -4,7 +4,7 @@ This take home test was developed by *Flavio Oliva*.
 
 # Requirements
 
-In order to run the quote.exe file you  first need to execute the following comand:
+In order to run the quote.exe file you  first need to execute the following command:
 
 ```sh
 mvn clean install
@@ -17,11 +17,11 @@ the quote.exe file is mainly the following command in an .exe file:
 ```sh
 java -jar target/homework-1.0-SNAPSHOT.jar %1 %2
 ```
-P.S.: If you prefer you can ignore the quote.exe file and execute the above command straight from the project's root directorty.
+P.S.: If you prefer you can ignore the quote.exe file and execute the above command straight from the project's root directory.
 
 # Monthly Repayment Formula.
 
-From my research the formula that most accuratelly calculates the monthly repayment based on the given example was the following:
+From my research the formula that most accurately calculates the monthly repayment based on the given example was the following:
 
 ```
                        J
@@ -40,4 +40,4 @@ N = number of months over which loan is amortized = L x 12
  Please, have a look at the link bellow for more details about the above formula.
  http://www.hughcalc.org/formula.php
 
- Any Questions, please don't resitate on contacting me. 
+ Any Questions, please don't resitate on contacting me.
